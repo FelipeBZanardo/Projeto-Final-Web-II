@@ -1,9 +1,6 @@
 package tech.ada.apicaixa.model.dao;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -26,6 +23,7 @@ public class Aposta {
     private Integer pontuacao;
     private BigDecimal valorPremio;
     private boolean acumulou;
-
-    //private User usuario;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private User usuario;
 }
