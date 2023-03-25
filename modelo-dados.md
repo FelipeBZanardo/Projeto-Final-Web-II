@@ -4,7 +4,7 @@
 ## Tabela de Apostas
 <br>
 
-id:  bigint (chave primária)  
+id: bigint (chave primária)  
 numero_sorteio: Long  
 dezenas: varchar  
 data_jogo: date  

@@ -15,7 +15,6 @@
 - `http://localhost:8080/minha-quina/api/v1/resultados/<num sorteio>`
 
     `[GET]` - Recebe as informações detalhadas do sorteio especificado na URL.
-
 <br/>
 
 #### CRUD de Apostas
