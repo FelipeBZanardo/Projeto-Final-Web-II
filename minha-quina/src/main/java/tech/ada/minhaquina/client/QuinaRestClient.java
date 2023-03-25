@@ -9,8 +9,8 @@ import tech.ada.minhaquina.api.resultado.ResultadoResponse;
 public interface QuinaRestClient {
 
     @GetMapping
-    ResultadoResponse getUltimoResultado();
+    SorteioDTO getUltimoSorteio();
 
     @GetMapping("/{numero}")
-    ResultadoResponse getResultadoByNumeroSorteio(@PathVariable Integer numero);
+    SorteioDTO getSorteioByNumeroSorteio(@PathVariable Integer numero);
 }

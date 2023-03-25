@@ -20,6 +20,7 @@ public class SorteioDTO {
     private Integer numeroConcursoProximo;
     private boolean acumulado;
     private LocalDate dataSorteio;
+    private LocalDate dataProximoSorteio;
     @JsonProperty("listaDezenas")
     private List<Integer> dezenasSorteadas;
     @JsonProperty("listaRateioPremio")
@@ -29,5 +30,10 @@ public class SorteioDTO {
     @JsonProperty("dataApuracao")
     private void convertDate(String dataString){
         this.dataSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    @JsonProperty("dataProximoConcurso")
+    private void convertDateProximoSorteio(String dataString){
+        this.dataProximoSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }
