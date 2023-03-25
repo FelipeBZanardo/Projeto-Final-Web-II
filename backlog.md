@@ -4,8 +4,8 @@
 - Consulta de Resultados ✅
 <br>
 
-- Crud de apostas (implementar o ApostaService)=> Felipe
-<br>
+- Crud de apostas (implementar o ApostaService)=> Felipe  ✅
+< br >
   
 - Crud usuário (implementar o UserService - intermediária) -> verificar impl autenticação => Adriano
 - Persistencia Resutado => Adriano
@@ -19,8 +19,9 @@
 <br>
 
 ## Regras de negócio
-- Não permite selecionar numeroSorteio maior que o número do próximo sorteio
-- Data do jogo não pode ser maior que a data do sorteio
+- Não permite selecionar númeroSorteio maior que o número do próximo sorteio✅
+- Data do jogo não pode ser maior que a data do sorteio✅
+- Só é permitido jogos com 5 dezenas não repetidas✅
 
 
 
