@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import tech.ada.minhaquina.api.exception.DataJogoException;
 import tech.ada.minhaquina.api.exception.NumeroSorteioException;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,14 +25,20 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     public static final String METHOD_ARGUMENT_NOT_VALID_ERROR_MESSAGE = "Campo inválido: '%s'. Causa: '%s'.";
 
     @ExceptionHandler(DataJogoException.class)
-    public ResponseEntity<Object> handleDuplicatedEmailException(DataJogoException ex) {
+    public ResponseEntity<Object> handleDataJogoException(DataJogoException ex) {
         String errorMessage = ex.getMessage();
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(errorMessage, httpStatus);
     }
 
     @ExceptionHandler(NumeroSorteioException.class)
-    public ResponseEntity<Object> handleDuplicatedEmailException(NumeroSorteioException ex) {
+    public ResponseEntity<Object> handleNumeroSorteioException(NumeroSorteioException ex) {
+        String errorMessage = ex.getMessage();
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(errorMessage, httpStatus);
+    }
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex) {
         String errorMessage = ex.getMessage();
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(errorMessage, httpStatus);

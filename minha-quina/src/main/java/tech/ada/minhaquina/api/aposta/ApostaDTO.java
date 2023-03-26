@@ -1,11 +1,10 @@
 package tech.ada.minhaquina.api.aposta;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
+import tech.ada.minhaquina.api.usuario.UsuarioModel;
 import tech.ada.minhaquina.api.validation.GameConstraint;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,10 +22,11 @@ public class ApostaDTO {
         this(apostaModel.getNumeroSorteio(), apostaModel.getDezenas(), apostaModel.getDataJogo());
     }
 
-    public static ApostaModel convertToModel(ApostaModel apostaModel, ApostaDTO apostaDTO){
+    public static ApostaModel convertToModel(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel){
         apostaModel.setNumeroSorteio(apostaDTO.getNumeroSorteio());
         apostaModel.setDezenas(apostaDTO.getDezenas());
         apostaModel.setDataJogo(apostaDTO.getDataJogo());
+        apostaModel.setUsuario(usuarioModel);
         return apostaModel;
     }
 }

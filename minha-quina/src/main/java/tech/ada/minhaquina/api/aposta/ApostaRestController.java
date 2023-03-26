@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/minha-quina/api/v1/apostas")
+@RequestMapping("/minha-quina/api/v1/usuarios/{userId}/apostas")
 public class ApostaRestController {
 
     private final ApostaService apostaService;
@@ -22,42 +22,29 @@ public class ApostaRestController {
     }
 
     @GetMapping
-    public List<ApostaDTO> getAllApostas(){
-        return apostaService.getAllApostas();
+    public List<ApostaDTO> getAllApostas(@PathVariable Long userId){
+        return apostaService.getAllApostas(userId);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getApostabyId(@PathVariable Long id){
-        try{
-            return ResponseEntity.ok(apostaService.getApostabyId(id));
-        }catch (NoSuchElementException e){
-            return ResponseEntity.badRequest().body("Id de aposta não existe");
-        }
+    @GetMapping("/{apostaId}")
+    public ApostaDTO getApostabyId(@PathVariable Long userId, @PathVariable Long apostaId){
+        return apostaService.getApostabyId(userId, apostaId);
     }
 
     @PostMapping()
-    public ResponseEntity<Object> saveAposta(@Valid @RequestBody ApostaDTO apostaDTO) {
-        return new ResponseEntity<>(apostaService.saveAposta(apostaDTO), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApostaDTO saveAposta(@PathVariable Long userId, @Valid @RequestBody ApostaDTO apostaDTO) {
+        return apostaService.saveAposta(userId, apostaDTO);
     }
 
-    @PutMapping ("/{id}")
-    public ResponseEntity<Object> updateAposta(@PathVariable Long id, @RequestBody ApostaDTO apostaDTO){
-        try{
-            return ResponseEntity.ok(apostaService.updateAposta(id, apostaDTO));
-        }catch (NoSuchElementException e){
-            return ResponseEntity.badRequest().body("Id de aposta não existe");
-        }
+    @PutMapping ("/{apostaId}")
+    public ApostaDTO updateAposta(@PathVariable Long userId, @PathVariable Long apostaId, @RequestBody ApostaDTO apostaDTO){
+        return apostaService.updateAposta(userId, apostaId, apostaDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAposta(@PathVariable Long id){
-        try{
-            apostaService.deleteAposta(id);
-            return ResponseEntity.ok("Aposta deletada com sucesso");
-        }catch (NoSuchElementException e){
-            return ResponseEntity.badRequest().body("Id de aposta não existe");
-        }
-
+    @DeleteMapping("/{apostaId}")
+    public void deleteAposta(@PathVariable Long userId, @PathVariable Long apostaId){
+            apostaService.deleteAposta(userId, apostaId);
     }
 
 }

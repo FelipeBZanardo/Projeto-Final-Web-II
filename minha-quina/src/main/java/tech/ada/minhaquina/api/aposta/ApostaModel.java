@@ -19,7 +19,7 @@ public class ApostaModel {
     private Integer numeroSorteio;
     private int[] dezenas;
     private LocalDate dataJogo;
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private UsuarioModel usuario;*/
+    private UsuarioModel usuario;
 }
