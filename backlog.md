@@ -5,8 +5,20 @@
 - Consulta de Resultados ✅
   <br>
 
+<<<<<<< HEAD
 - Crud de apostas (implementar o ApostaService)=> Felipe
   <br>
+=======
+- Crud de apostas (implementar o ApostaService)=> Felipe  ✅
+- Dados do sorteio da aposta ✅
+    - Problemas ao gerar dados do sorteio de uma aposta futura ⚠️
+    
+< br >
+  
+- Crud usuário (implementar o UserService - intermediária) -> verificar impl autenticação => Adriano
+- Persistencia Resutado => Adriano
+<br>
+>>>>>>> 12f6f4a33de18b9d9252959a5181ad0e31d93b09
 
 - Crud usuário (implementar o UserService -- intermediária) → verificar impl autenticação ⇒ Adriano
 - Persistencia Resutado ⇒ Adriano
@@ -21,8 +33,9 @@
 
 ## Regras de negócio
 
-- Não permite selecionar numeroSorteio maior que o número do próximo sorteio
-- Data do jogo não pode ser maior que a data do sorteio
+- Não permite selecionar númeroSorteio maior que o número do próximo sorteio✅
+- Data do jogo não pode ser maior que a data do sorteio✅
+- Só é permitido jogos com 5 dezenas não repetidas✅
 
 Aposta-premiada
 
@@ -30,6 +43,13 @@ Aposta-premiada
 - qtd pontos
 - valor
 - acumulou
+
+### Apenas para teste
+INSERT INTO
+  usuarios
+  (id, email, password, username)
+VALUES
+  (1, 'felipe@gmail.com', 'saddasd', 'felipe');
 
 
 

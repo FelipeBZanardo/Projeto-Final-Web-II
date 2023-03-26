@@ -1,11 +1,18 @@
 package tech.ada.minhaquina.api.aposta;
 
+
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.ada.minhaquina.api.exception.DataJogoException;
+import tech.ada.minhaquina.api.exception.NumeroSorteioException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/minha-quina/api/v1/apostas")
+@RequestMapping("/minha-quina/api/v1/usuarios/{userId}/apostas")
 public class ApostaRestController {
 
     private final ApostaService apostaService;
@@ -15,28 +22,29 @@ public class ApostaRestController {
     }
 
     @GetMapping
-    public List<ApostaModel> getAllApostas(){
-        return apostaService.getAllApostas();
+    public List<ApostaDTO> getAllApostas(@PathVariable Long userId){
+        return apostaService.getAllApostas(userId);
     }
 
-    @GetMapping("/{id}")
-    public ApostaModel getApostabyId(@PathVariable Long id){
-        return apostaService.getApostabyId(id);
+    @GetMapping("/{apostaId}")
+    public ApostaDTO getApostabyId(@PathVariable Long userId, @PathVariable Long apostaId){
+        return apostaService.getApostabyId(userId, apostaId);
     }
 
     @PostMapping()
-    public ApostaModel saveAposta(@RequestBody ApostaDTO apostaDTO){
-        return apostaService.saveAposta(apostaDTO);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApostaDTO saveAposta(@PathVariable Long userId, @Valid @RequestBody ApostaDTO apostaDTO) {
+        return apostaService.saveAposta(userId, apostaDTO);
     }
 
-    @PutMapping ("/{id}")
-    public ApostaModel updateAposta(@PathVariable Long id, @RequestBody ApostaDTO apostaDTO){
-        return apostaService.updateAposta(id, apostaDTO);
+    @PutMapping ("/{apostaId}")
+    public ApostaDTO updateAposta(@PathVariable Long userId, @PathVariable Long apostaId, @RequestBody ApostaDTO apostaDTO){
+        return apostaService.updateAposta(userId, apostaId, apostaDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAposta(@PathVariable Long id){
-        apostaService.deleteAposta(id);
+    @DeleteMapping("/{apostaId}")
+    public void deleteAposta(@PathVariable Long userId, @PathVariable Long apostaId){
+            apostaService.deleteAposta(userId, apostaId);
     }
 
 }

@@ -16,8 +16,8 @@ public class ApostaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long numeroSorteio;
-    private String dezenas;
+    private Integer numeroSorteio;
+    private int[] dezenas;
     private LocalDate dataJogo;
     @ManyToOne
     @JoinColumn(name = "usuario_id")

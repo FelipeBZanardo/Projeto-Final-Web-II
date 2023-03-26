@@ -2,9 +2,11 @@ package tech.ada.minhaquina.api.sorteio;
 
 import jakarta.persistence.*;
 import lombok.*;
+import tech.ada.minhaquina.client.Premio;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +22,8 @@ public class SorteioModel {
     private Integer numeroConcursoProximo;
     private boolean acumulado;
     private LocalDate dataSorteio;
-    private String dezenasSorteadas;
+    private LocalDate dataProximoSorteio;
+    private int[] dezenasSorteadas;
     private String premios;
     private BigDecimal valorAcumuladoProximoConcurso;
 }
