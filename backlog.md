@@ -1,32 +1,32 @@
 # Backlog do Projeto
 
 ## Implementações
-- Consulta de Resultados ✅
-<br>
 
-- Crud de apostas (implementar o ApostaService)=> Felipe  ✅
+- Consulta de Resultados ✅
+  <br>
+
+- Crud de apostas (implementar o ApostaService) → Felipe  ✅
 - Dados do sorteio da aposta ✅
     - Problemas ao gerar dados do sorteio de uma aposta futura ⚠️
-    
 < br >
   
-- Crud usuário (implementar o UserService - intermediária) -> verificar impl autenticação => Adriano
-- Persistencia Resutado => Adriano
+- Crud usuário (implementar o UserService -- intermediária) → verificar impl autenticação → Adriano
+  - Feito apenas create, pois não usará "id", apenas token ⚠️
+- Persistencia Resultado → Adriano
 <br>
 
-- Fazer o relacionamento das classes com JPA -> ajustar a inclusao de resultados (ajustar entrega de 2af tb)
-- Acrescentar no application.properties as configurações do H2 ✅
-<br>
+- Fazer o relacionamento das classes com JPA → ajustar a inclusao de resultados (ajustar entrega de 2af também)
+- Acrescentar no application.properties as configurações do H2. ✅
+  <br>
 
 - Front-end: Luiz
-<br>
+  <br>
 
 ## Regras de negócio
+
 - Não permite selecionar númeroSorteio maior que o número do próximo sorteio✅
 - Data do jogo não pode ser maior que a data do sorteio✅
 - Só é permitido jogos com 5 dezenas não repetidas✅
-
-
 
 Aposta-premiada
 

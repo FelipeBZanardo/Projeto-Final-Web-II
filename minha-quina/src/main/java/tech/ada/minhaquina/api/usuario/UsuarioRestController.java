@@ -1,35 +1,39 @@
 package tech.ada.minhaquina.api.usuario;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/minha-quina/api/v1/users")
+@RequestMapping("/minha-quina/api/v1/usuarios")
 public class UsuarioRestController {
 
-    private final UsuarioService userService;
+    private final UsuarioService usuarioService;
 
-    public UsuarioRestController(UsuarioService userService) {
-        this.userService = userService;
-    }
-
-    @PostMapping("login/{id}")
-    public void login(){
-
+    public UsuarioRestController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/cadastro")
-    public UsuarioModel saveUser(@RequestBody UsuarioModel user){
-        return userService.saveUser(user);
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsuarioResponse saveUsuario(@RequestBody @Valid UsuarioRequest usuarioRequest) {
+        return usuarioService.saveUsuario(usuarioRequest);
+    }
+
+    @PostMapping("/login/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void login(){
     }
 
     @PutMapping("/{id}/editar")
-    public UsuarioModel updateUser(@PathVariable Long id, @RequestBody UsuarioModel user){
-        return userService.updateUser(id, user);
+    @ResponseStatus(HttpStatus.OK)
+    public UsuarioResponse updateUser(@PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest) {
+        return usuarioService.updateUsuario(id, usuarioRequest);
     }
 
     @DeleteMapping("/{id}/deletar")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
+        usuarioService.deleteUsuario(id);
     }
-
 }

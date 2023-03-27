@@ -3,13 +3,9 @@ package tech.ada.minhaquina.api.aposta;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.ada.minhaquina.api.exception.DataJogoException;
-import tech.ada.minhaquina.api.exception.NumeroSorteioException;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/minha-quina/api/v1/usuarios/{userId}/apostas")

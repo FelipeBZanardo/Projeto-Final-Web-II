@@ -1,3 +1,335 @@
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "asdóias",
+  "email": "adriaino@email.com.",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213409.400.txt
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "asdóias ",
+  "email": "adriaino@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213345.400.txt
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 91
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "asdóias",
+  "email": "adriaino@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213331.201.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "asdias",
+  "email": "adriano@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213317.201.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 88
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "asdias",
+  "email": "adriano@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213219.201.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T213141.409.txt
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T204513.201.json
+
+###
+
+GET http://localhost:8080/minha-quina/api/v1/sorteios/external-search
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-03-26T204352.200.json
+
+###
+
+GET http://localhost:8080/minha-quina/api/v1/sorteios/external-search
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-03-26T203824.404.json
+
+###
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T203720.404.json
+
+###
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T203511.404.json
+
+###
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T202807.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios/
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T202724.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoSilva",
+  "email": "joao.silva@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T202648.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "JoaoDeux",
+  "email": "jofgod@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T202556.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "João de Deux",
+  "email": "jofgod@email.com",
+  "password": "MY246pass$"
+  }
+
+<> 2023-03-26T202402.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "João de Deux",
+  "email": "jofgod@email.com",
+  "password": "MY246password"
+  }
+
+<> 2023-03-26T201039.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "João de Deux",
+  "email": "jofgod@email.com",
+  "password": "MY246password"
+  }
+
+<> 2023-03-26T200950.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 97
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "username": "João de Deux",
+  "email": "jofgod@email.com",
+  "password": "MY246password"
+  }
+
+<> 2023-03-26T200219.404.json
+
+###
+
+POST http://localhost:8080/minha-quina/api/v1/usuarios
+Content-Type: application/json
+Content-Length: 99
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{ "username": "João de Deux",
+    "email": "jofgod@email.com",
+    "password": "MY246password"
+  }
+
+<> 2023-03-26T200147.404.json
+
+###
+
+GET https://servicebus2.caixa.gov.br/portaldeloterias/api/quina/
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-03-26T173458.200.json
+
+###
+
 GET https://servicebus2.caixa.gov.br/portaldeloterias/api/quina/
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.6)
