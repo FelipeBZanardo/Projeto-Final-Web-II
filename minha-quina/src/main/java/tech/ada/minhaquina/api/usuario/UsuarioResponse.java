@@ -10,4 +10,9 @@ import lombok.*;
 public class UsuarioResponse {
     private String username;
     private String email;
+
+    public UsuarioResponse(UsuarioModel usuarioModel) {
+        this.username = usuarioModel.getUsername();
+        this.email = usuarioModel.getEmail();
+    }
 }

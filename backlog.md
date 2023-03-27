@@ -5,19 +5,15 @@
 - Consulta de Resultados ✅
   <br>
 
-- Crud de apostas (implementar o ApostaService)=> Felipe  ✅
+- Crud de apostas (implementar o ApostaService) → Felipe  ✅
 - Dados do sorteio da aposta ✅
     - Problemas ao gerar dados do sorteio de uma aposta futura ⚠️
-    
 < br >
   
-- Crud usuário (implementar o UserService - intermediária) -> verificar impl autenticação => Adriano
-- Persistencia Resutado => Adriano
+- Crud usuário (implementar o UserService -- intermediária) → verificar impl autenticação → Adriano
+  - Feito apenas create, pois não usará "id", apenas token ⚠️
+- Persistencia Resultado → Adriano
 <br>
-
-- Crud usuário (implementar o UserService -- intermediária) → verificar impl autenticação ⇒ Adriano
-- Persistencia Resutado ⇒ Adriano
-  <br>
 
 - Fazer o relacionamento das classes com JPA → ajustar a inclusao de resultados (ajustar entrega de 2af também)
 - Acrescentar no application.properties as configurações do H2. ✅

@@ -1,5 +1,6 @@
 package tech.ada.minhaquina.api.system;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -14,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import tech.ada.minhaquina.api.exception.DataJogoException;
 import tech.ada.minhaquina.api.exception.NumeroSorteioException;
+import tech.ada.minhaquina.api.usuario.DuplicatedEmailException;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -23,6 +25,13 @@ import java.util.stream.Stream;
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
     public static final String METHOD_ARGUMENT_NOT_VALID_ERROR_MESSAGE = "Campo inválido: '%s'. Causa: '%s'.";
+
+    @ExceptionHandler(DuplicatedEmailException.class)
+    public ResponseEntity<Object> handleDuplicatedEmailException(DuplicatedEmailException ex) {
+        String errorMessage = ex.getMessage();
+        HttpStatus httpStatus = HttpStatus.CONFLICT;
+        return new ResponseEntity<>(errorMessage, httpStatus);
+    }
 
     @ExceptionHandler(DataJogoException.class)
     public ResponseEntity<Object> handleDataJogoException(DataJogoException ex) {
@@ -37,6 +46,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(errorMessage, httpStatus);
     }
+
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex) {
         String errorMessage = ex.getMessage();
@@ -47,8 +57,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status,
-            WebRequest request) {
+            MethodArgumentNotValidException ex, @NotNull HttpHeaders headers, @NotNull HttpStatusCode status,
+            @NotNull WebRequest request) {
         String errorMessage = getErrorMessages(ex.getBindingResult());
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(errorMessage, httpStatus);
