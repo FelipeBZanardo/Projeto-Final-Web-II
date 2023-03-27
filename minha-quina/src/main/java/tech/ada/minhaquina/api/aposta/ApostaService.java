@@ -3,7 +3,6 @@ package tech.ada.minhaquina.api.aposta;
 import org.springframework.stereotype.Service;
 import tech.ada.minhaquina.api.exception.DataJogoException;
 import tech.ada.minhaquina.api.exception.NumeroSorteioException;
-import tech.ada.minhaquina.api.sorteio.SorteioService;
 import tech.ada.minhaquina.api.usuario.UsuarioModel;
 import tech.ada.minhaquina.api.usuario.UsuarioRepository;
 import tech.ada.minhaquina.client.QuinaRestClient;
@@ -18,20 +17,16 @@ public class ApostaService {
 
     private final ApostaRepository apostaRepository;
     private final QuinaRestClient quinaRestClient;
-    private final SorteioService sorteioService;
     private final UsuarioRepository usuarioRepository;
 
-    public ApostaService(ApostaRepository apostaRepository, QuinaRestClient quinaRestClient, SorteioService sorteioService, UsuarioRepository usuarioRepository) {
+    public ApostaService(ApostaRepository apostaRepository, QuinaRestClient quinaRestClient, UsuarioRepository usuarioRepository) {
         this.apostaRepository = apostaRepository;
         this.quinaRestClient = quinaRestClient;
-        this.sorteioService = sorteioService;
         this.usuarioRepository = usuarioRepository;
     }
 
     public List<ApostaDTO> getAllApostas(Long userId) {
-        usuarioRepository.findById(userId)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
-
+        getUsuarioById(userId);
         return apostaRepository.findAllByUsuarioId(userId)
                 .stream()
                 .map(ApostaDTO::new)
@@ -39,32 +34,25 @@ public class ApostaService {
     }
 
     public ApostaDTO getApostabyId(Long userId, Long apostaId){
-        usuarioRepository.findById(userId)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
-        ApostaModel apostaModel = apostaRepository.findById(apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
+        getUsuarioById(userId);
+        ApostaModel apostaModel = getApostaModelById(apostaId);
         return new ApostaDTO(apostaModel);
     }
 
     public ApostaDTO saveAposta(Long userId, ApostaDTO apostaDTO) {
-        UsuarioModel usuarioModel = usuarioRepository.findById(userId)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
+        UsuarioModel usuarioModel = getUsuarioById(userId);
         return salvarAposta(new ApostaModel(), apostaDTO, usuarioModel);
     }
 
     public ApostaDTO updateAposta(Long userId, Long apostaId, ApostaDTO apostaDTO){
-        UsuarioModel usuarioModel = usuarioRepository.findById(userId)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
-        ApostaModel apostaAModificar = apostaRepository.findById(apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
+        UsuarioModel usuarioModel = getUsuarioById(userId);
+        ApostaModel apostaAModificar = getApostaModelById(apostaId);
         return salvarAposta(apostaAModificar, apostaDTO, usuarioModel);
     }
 
     public void deleteAposta(Long userId, Long apostaId) throws NoSuchElementException{
-        usuarioRepository.findById(userId)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
-        ApostaModel aposta = apostaRepository.findById(apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
+        getUsuarioById(userId);
+        ApostaModel aposta = getApostaModelById(apostaId);
         apostaRepository.delete(aposta);
     }
 
@@ -72,7 +60,6 @@ public class ApostaService {
         verificarNumeroSorteio(apostaDTO.getNumeroSorteio());
         verificarDataJogo(apostaDTO.getNumeroSorteio(), apostaDTO.getDataJogo());
         apostaRepository.save(ApostaDTO.convertToModel(apostaModel, apostaDTO, usuarioModel));
-        sorteioService.saveSorteio(apostaDTO.getNumeroSorteio());
         return apostaDTO;
     }
 
@@ -93,6 +80,16 @@ public class ApostaService {
         SorteioDTO sorteio = quinaRestClient.getSorteioByNumeroSorteio(numeroSorteio);
         if(dataJogo.isAfter(sorteio.getDataSorteio()))
             throw new DataJogoException(numeroSorteio, sorteio.getDataSorteio());
+    }
+
+    private UsuarioModel getUsuarioById(Long userId){
+        return usuarioRepository.findById(userId)
+                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
+    }
+
+    private ApostaModel getApostaModelById(Long apostaId){
+        return apostaRepository.findById(apostaId)
+                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
     }
 
 }
