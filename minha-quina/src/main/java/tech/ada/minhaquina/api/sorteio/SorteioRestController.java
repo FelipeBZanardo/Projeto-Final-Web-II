@@ -1,12 +1,7 @@
 package tech.ada.minhaquina.api.sorteio;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.ada.minhaquina.client.SorteioDTO;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/minha-quina/api/v1/")

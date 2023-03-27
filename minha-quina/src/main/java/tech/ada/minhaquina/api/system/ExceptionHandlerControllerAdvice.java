@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import tech.ada.minhaquina.api.exception.DataJogoException;
 import tech.ada.minhaquina.api.exception.NumeroSorteioException;
+import tech.ada.minhaquina.api.exception.SorteioException;
 import tech.ada.minhaquina.api.usuario.DuplicatedEmailException;
 
 import java.util.NoSuchElementException;
@@ -32,6 +33,14 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
         HttpStatus httpStatus = HttpStatus.CONFLICT;
         return new ResponseEntity<>(errorMessage, httpStatus);
     }
+
+    @ExceptionHandler(SorteioException.class)
+    public ResponseEntity<Object> SorteioException(SorteioException ex) {
+        String errorMessage = ex.getMessage();
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(errorMessage, httpStatus);
+    }
+
 
     @ExceptionHandler(DataJogoException.class)
     public ResponseEntity<Object> handleDataJogoException(DataJogoException ex) {
