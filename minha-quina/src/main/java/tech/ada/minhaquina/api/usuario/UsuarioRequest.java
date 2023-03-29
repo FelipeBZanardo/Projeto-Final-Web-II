@@ -15,6 +15,7 @@ public class UsuarioRequest {
             "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$")
-
     private String password;
+    @Pattern(regexp = "^[a-zA-Z]{4,5}$")
+    private String role;
 }

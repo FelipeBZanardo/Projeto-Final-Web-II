@@ -16,6 +16,6 @@ public class SorteioException extends RuntimeException{
     @Override
     public String getMessage() {
         return "O sorteio de número " + numeroSorteio + " será realizado em " +
-                dataSorteio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "após 20h";
+                dataSorteio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " após as 20h";
     }
 }

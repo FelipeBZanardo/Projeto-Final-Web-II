@@ -1,5 +1,6 @@
 package tech.ada.minhaquina.api.aposta;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import tech.ada.minhaquina.api.exception.DataJogoException;
 import tech.ada.minhaquina.api.exception.NumeroSorteioException;
@@ -25,34 +26,31 @@ public class ApostaService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<ApostaDTO> getAllApostas(Long userId) {
-        getUsuarioById(userId);
-        return apostaRepository.findAllByUsuarioId(userId)
+    public List<ApostaDTO> getAllApostas(UserDetails userDetails) {
+        return apostaRepository.findAllByUsuarioUsername(userDetails.getUsername())
                 .stream()
                 .map(ApostaDTO::new)
                 .toList();
     }
 
-    public ApostaDTO getApostabyId(Long userId, Long apostaId){
-        getUsuarioById(userId);
-        ApostaModel apostaModel = getApostaModelById(apostaId);
+    public ApostaDTO getApostabyId(UserDetails userDetails, Long apostaId){
+        ApostaModel apostaModel = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         return new ApostaDTO(apostaModel);
     }
 
-    public ApostaDTO saveAposta(Long userId, ApostaDTO apostaDTO) {
-        UsuarioModel usuarioModel = getUsuarioById(userId);
+    public ApostaDTO saveAposta(UserDetails userDetails, ApostaDTO apostaDTO) {
+        UsuarioModel usuarioModel = getUsuarioByUsername(userDetails.getUsername());
         return salvarAposta(new ApostaModel(), apostaDTO, usuarioModel);
     }
 
-    public ApostaDTO updateAposta(Long userId, Long apostaId, ApostaDTO apostaDTO){
-        UsuarioModel usuarioModel = getUsuarioById(userId);
-        ApostaModel apostaAModificar = getApostaModelById(apostaId);
+    public ApostaDTO updateAposta(UserDetails userDetails, Long apostaId, ApostaDTO apostaDTO){
+        UsuarioModel usuarioModel = getUsuarioByUsername(userDetails.getUsername());
+        ApostaModel apostaAModificar = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         return salvarAposta(apostaAModificar, apostaDTO, usuarioModel);
     }
 
-    public void deleteAposta(Long userId, Long apostaId) throws NoSuchElementException{
-        getUsuarioById(userId);
-        ApostaModel aposta = getApostaModelById(apostaId);
+    public void deleteAposta(UserDetails userDetails, Long apostaId) throws NoSuchElementException{
+        ApostaModel aposta = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         apostaRepository.delete(aposta);
     }
 
@@ -82,14 +80,15 @@ public class ApostaService {
             throw new DataJogoException(numeroSorteio, sorteio.getDataSorteio());
     }
 
-    private UsuarioModel getUsuarioById(Long userId){
-        return usuarioRepository.findById(userId)
+    private UsuarioModel getUsuarioByUsername(String username){
+        return usuarioRepository.findByUsername(username)
                 .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
     }
 
-    private ApostaModel getApostaModelById(Long apostaId){
-        return apostaRepository.findById(apostaId)
+    private ApostaModel getApostaModelByUsuarioNameAndId(String username, Long apostaId){
+        return apostaRepository.findByUsuarioUsernameAndId(username, apostaId)
                 .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
     }
+
 
 }
