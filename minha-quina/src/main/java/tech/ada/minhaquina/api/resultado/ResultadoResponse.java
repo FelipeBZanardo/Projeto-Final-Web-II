@@ -1,11 +1,9 @@
 package tech.ada.minhaquina.api.resultado;
 
 import lombok.*;
-import tech.ada.minhaquina.client.Premio;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,11 +12,21 @@ import java.util.List;
 @ToString
 public class ResultadoResponse {
     private Integer numeroSorteio;
-    private Integer numeroConcursoProximo;
-    private boolean acumulado;
     private LocalDate dataSorteio;
-    private List<Integer> dezenasSorteadas;
-    private List<Premio> premios;
-    private BigDecimal valorAcumuladoProximoConcurso;
+    private int[] dezenasSorteadas;
+    private int[] dezenasApostadas;
+    private boolean acumulado;
+    private Integer pontuacao;
+    private BigDecimal valorPremio;
 
+    public ResultadoResponse(ResultadoModel resultadoModel) {
+        this.numeroSorteio = resultadoModel.getSorteio().getNumeroSorteio();
+        this.dataSorteio = resultadoModel.getSorteio().getDataSorteio();
+        this.dezenasSorteadas = resultadoModel.getSorteio().getDezenasSorteadas();
+        this.dezenasApostadas = resultadoModel.getAposta().getDezenas();
+        this.acumulado = resultadoModel.getSorteio().isAcumulado();
+        this.pontuacao = resultadoModel.getPontuacao();
+        this.valorPremio = resultadoModel.getValorPremio();
+
+    }
 }

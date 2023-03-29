@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import tech.ada.minhaquina.api.exception.DataJogoException;
-import tech.ada.minhaquina.api.exception.NumeroSorteioException;
-import tech.ada.minhaquina.api.exception.SorteioException;
+import tech.ada.minhaquina.api.exception.*;
 import tech.ada.minhaquina.api.usuario.DuplicatedEmailException;
 
 import java.util.NoSuchElementException;
@@ -35,7 +33,7 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
     }
 
     @ExceptionHandler(SorteioException.class)
-    public ResponseEntity<Object> SorteioException(SorteioException ex) {
+    public ResponseEntity<Object> handleSorteioException(SorteioException ex) {
         String errorMessage = ex.getMessage();
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(errorMessage, httpStatus);

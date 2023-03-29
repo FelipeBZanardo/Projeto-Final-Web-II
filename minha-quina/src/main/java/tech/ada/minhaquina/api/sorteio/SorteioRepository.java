@@ -8,4 +8,6 @@ public interface SorteioRepository extends JpaRepository<SorteioModel, Long> {
     Optional<SorteioModel> findByNumeroSorteio(Integer numero);
 
     boolean existsByNumeroSorteio(Integer numero);
+
+
 }

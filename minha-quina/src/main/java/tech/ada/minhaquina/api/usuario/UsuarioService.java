@@ -1,6 +1,7 @@
 package tech.ada.minhaquina.api.usuario;
 
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -10,9 +11,11 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UsuarioResponse saveUsuario(@Valid UsuarioRequest usuarioRequest) {
@@ -20,7 +23,13 @@ public class UsuarioService {
         if (optionalUsuario.isPresent()) {
             throw new DuplicatedEmailException("E-mail já cadastrado");
         }
-        UsuarioModel usuarioModel = usuarioRepository.save(UsuarioModel.from(usuarioRequest));
+        UsuarioModel user = UsuarioModel.builder()
+                .email(usuarioRequest.getEmail())
+                .username(usuarioRequest.getUsername())
+                .role(Enum.valueOf(Role.class, usuarioRequest.getRole().toUpperCase()))
+                .password(passwordEncoder.encode(usuarioRequest.getPassword()))
+                .build();
+        UsuarioModel usuarioModel = usuarioRepository.save(user);
         return new UsuarioResponse(usuarioModel);
     }
 
@@ -28,15 +37,22 @@ public class UsuarioService {
         UsuarioModel usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
 
-        usuario.setEmail(usuarioRequest.getEmail());
-        usuario.setPassword(usuarioRequest.getPassword());
-        usuario.setUsername(usuarioRequest.getUsername());
-        usuarioRepository.save(usuario);
-        return new UsuarioResponse(usuario);
+        UsuarioModel user = UsuarioModel.builder()
+                .email(usuarioRequest.getEmail())
+                .username(usuarioRequest.getUsername())
+                .role(Enum.valueOf(Role.class, usuarioRequest.getRole().toUpperCase()))
+                .password(passwordEncoder.encode(usuarioRequest.getPassword()))
+                .build();
+        user.setId(id);
+
+        usuarioRepository.save(user);
+        return new UsuarioResponse(user);
     }
 
     public void deleteUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+        UsuarioModel usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
+        usuarioRepository.delete(usuario);
     }
 
 

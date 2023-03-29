@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.ada.minhaquina.client.SorteioDTO;
 
 @RestController
-@RequestMapping("/minha-quina/api/v1/")
+@RequestMapping("/minha-quina/api/v1/apostas/{apostaId}/sorteios")
 public class SorteioRestController {
 
     private final SorteioService sorteioService;
@@ -13,19 +13,9 @@ public class SorteioRestController {
         this.sorteioService = sorteioService;
     }
 
-    @GetMapping("sorteios/external-search")
-    public SorteioDTO getUltimoResultado(){
-        return sorteioService.getUltimoSorteio();
-    }
-
-    @GetMapping("sorteios/external-search/{numero}")
-    public SorteioDTO getResultadoByNumeroSorteio(@PathVariable Integer numero){
-        return sorteioService.getSorteioByNumeroSorteio(numero);
-    }
-
-    @GetMapping("usuarios/{userId}/apostas/{apostaId}/sorteios")
-    public SorteioDTO getSorteioCadastradoByNumeroSorteio(@PathVariable Long userId, @PathVariable Long apostaId){
-        return sorteioService.getSorteioByAposta(userId, apostaId);
+    @GetMapping()
+    public SorteioDTO getSorteioCadastradoByNumeroSorteio(@PathVariable Long apostaId){
+        return sorteioService.getSorteioByAposta(apostaId);
     }
 
 
