@@ -30,16 +30,6 @@ public class UsuarioModel implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public UsuarioModel(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public static UsuarioModel from(UsuarioRequest usuarioRequest) {
-        return new UsuarioModel(usuarioRequest.getUsername(), usuarioRequest.getEmail(), usuarioRequest.getPassword());
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         log.info("role.name(): " + role.name());

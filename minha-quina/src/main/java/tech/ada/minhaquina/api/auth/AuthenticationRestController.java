@@ -23,19 +23,18 @@ public class AuthenticationRestController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public AuthenticationResponse login(@RequestBody AuthenticationRequest request){
+    public AuthenticationResponse login(@RequestBody AuthenticationRequest request) {
         var authentication = new UsernamePasswordAuthenticationToken(request.username(), request.password());
         authenticationManager.authenticate(authentication);
         UsuarioModel user = userJpaRepository.findByUsername(request.username()).orElseThrow();
         String token = jwtService.createToken(user);
-        jwtService.destroyToken(false);
         return new AuthenticationResponse(token);
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<String> logut(){
-        jwtService.destroyToken(true);
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization) {
+        String token = authorization.split(" ")[1];
+        jwtService.saveTokenToBlockedList(token);
         return ResponseEntity.ok("Logout feito com sucesso");
     }
-
 }

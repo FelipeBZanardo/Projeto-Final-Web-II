@@ -29,13 +29,13 @@ public class ApostaService {
     public List<ApostaDTO> getAllApostas(UserDetails userDetails) {
         return apostaRepository.findAllByUsuarioUsername(userDetails.getUsername())
                 .stream()
-                .map(ApostaDTO::new)
+                .map(ApostaDTO::from)
                 .toList();
     }
 
-    public ApostaDTO getApostabyId(UserDetails userDetails, Long apostaId){
+    public ApostaDTO getApostaById(UserDetails userDetails, Long apostaId){
         ApostaModel apostaModel = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
-        return new ApostaDTO(apostaModel);
+        return ApostaDTO.from(apostaModel);
     }
 
     public ApostaDTO saveAposta(UserDetails userDetails, ApostaDTO apostaDTO) {

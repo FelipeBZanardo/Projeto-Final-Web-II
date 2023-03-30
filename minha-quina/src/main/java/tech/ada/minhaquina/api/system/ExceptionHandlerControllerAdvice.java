@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import tech.ada.minhaquina.api.exception.*;
-import tech.ada.minhaquina.api.usuario.DuplicatedEmailException;
+import tech.ada.minhaquina.api.usuario.DuplicatedUserException;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -25,8 +25,8 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 
     public static final String METHOD_ARGUMENT_NOT_VALID_ERROR_MESSAGE = "Campo inválido: '%s'. Causa: '%s'.";
 
-    @ExceptionHandler(DuplicatedEmailException.class)
-    public ResponseEntity<Object> handleDuplicatedEmailException(DuplicatedEmailException ex) {
+    @ExceptionHandler(DuplicatedUserException.class)
+    public ResponseEntity<Object> handleDuplicatedUserException(DuplicatedUserException ex) {
         String errorMessage = ex.getMessage();
         HttpStatus httpStatus = HttpStatus.CONFLICT;
         return new ResponseEntity<>(errorMessage, httpStatus);

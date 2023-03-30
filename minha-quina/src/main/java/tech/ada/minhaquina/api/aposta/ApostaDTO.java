@@ -12,17 +12,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 public class ApostaDTO {
-
+    private Long id;
     private Integer numeroSorteio;
     @GameConstraint
     private int[] dezenas;
     private LocalDate dataJogo;
 
-    public ApostaDTO(ApostaModel apostaModel){
-        this(apostaModel.getNumeroSorteio(), apostaModel.getDezenas(), apostaModel.getDataJogo());
+    public static ApostaDTO from(ApostaModel apostaModel) {
+        return new ApostaDTO(apostaModel.getId(), apostaModel.getNumeroSorteio(), apostaModel.getDezenas(), apostaModel.getDataJogo());
     }
 
-    public static ApostaModel convertToModel(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel){
+    public static ApostaModel convertToModel(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel) {
         apostaModel.setNumeroSorteio(apostaDTO.getNumeroSorteio());
         apostaModel.setDezenas(apostaDTO.getDezenas());
         apostaModel.setDataJogo(apostaDTO.getDataJogo());

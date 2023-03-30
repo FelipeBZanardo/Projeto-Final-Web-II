@@ -26,7 +26,7 @@ public class ApostaRestController {
 
     @GetMapping("/{apostaId}")
     public ApostaDTO getApostabyId(@PathVariable Long apostaId, @AuthenticationPrincipal UserDetails userDetails){
-        return apostaService.getApostabyId(userDetails, apostaId);
+        return apostaService.getApostaById(userDetails, apostaId);
     }
 
     @PostMapping()

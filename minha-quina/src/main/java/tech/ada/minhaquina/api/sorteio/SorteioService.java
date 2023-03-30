@@ -52,6 +52,6 @@ public class SorteioService {
             saveSorteio(numeroSorteio);
 
         SorteioModel sorteioModel = sorteioRepository.findByNumeroSorteio(numeroSorteio).orElseThrow();
-        return new SorteioDTO(sorteioModel);
+        return SorteioDTO.from(sorteioModel);
     }
 }

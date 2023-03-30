@@ -21,7 +21,11 @@ public class UsuarioService {
     public UsuarioResponse saveUsuario(@Valid UsuarioRequest usuarioRequest) {
         Optional<UsuarioModel> optionalUsuario = usuarioRepository.findByEmail(usuarioRequest.getEmail());
         if (optionalUsuario.isPresent()) {
-            throw new DuplicatedEmailException("E-mail já cadastrado");
+            throw new DuplicatedUserException("E-mail já cadastrado");
+        }
+        Optional<UsuarioModel> optionalUsuarioName = usuarioRepository.findByUsername(usuarioRequest.getUsername());
+        if (optionalUsuarioName.isPresent()) {
+            throw new DuplicatedUserException("Nome de usuário já cadastrado");
         }
         UsuarioModel user = UsuarioModel.builder()
                 .email(usuarioRequest.getEmail())

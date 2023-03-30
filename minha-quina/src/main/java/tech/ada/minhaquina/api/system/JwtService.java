@@ -1,13 +1,14 @@
 package tech.ada.minhaquina.api.system;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import tech.ada.minhaquina.api.blockedToken.BlockedTokenModel;
+import tech.ada.minhaquina.api.blockedToken.BlockedTokenRepository;
 
 import java.security.Key;
 import java.util.Base64;
@@ -18,26 +19,29 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+    private final BlockedTokenRepository blockedTokenRepository;
 
     @Value("${security.jwt.token.secret-key}")
     private String SECRET;
 
-    private Key getSignKInkey(){
-       return Keys.hmacShaKeyFor(Base64.getEncoder().encode(SECRET.getBytes()));
+    public JwtService(BlockedTokenRepository blockedTokenRepository) {
+        this.blockedTokenRepository = blockedTokenRepository;
     }
 
-    private static boolean invalidToken;
+    private Key getSignKInkey() {
+        return Keys.hmacShaKeyFor(Base64.getEncoder().encode(SECRET.getBytes()));
+    }
 
-    public String extractUsername(String token){
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> resolver){
+    public <T> T extractClaim(String token, Function<Claims, T> resolver) {
         final Claims claims = this.extractAllClaims(token);
         return resolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token){
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKInkey())
                 .build()
@@ -45,7 +49,7 @@ public class JwtService {
                 .getBody();
     }
 
-    public String createToken(UserDetails user){
+    public String createToken(UserDetails user) {
         return this.createToken(new HashMap<>(), user);
     }
 
@@ -62,20 +66,26 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails user){
+    public boolean isTokenValid(String token, UserDetails user) {
         String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpired(token) && !invalidToken;
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && tokenNotBlocked(token);
+    }
+
+    private boolean tokenNotBlocked(String token) {
+        return !blockedTokenRepository.existsByBlockedToken(token);
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpirantion(token).before(new Date());
+        return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpirantion(String token) {
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public void destroyToken(boolean destroy){
-        invalidToken = destroy;
+    public void saveTokenToBlockedList(String token) {
+        var tokenModel = new BlockedTokenModel();
+        tokenModel.setBlockedToken(token);
+        blockedTokenRepository.save(tokenModel);
     }
 }

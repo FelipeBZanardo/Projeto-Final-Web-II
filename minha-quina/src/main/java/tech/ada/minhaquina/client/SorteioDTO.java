@@ -38,8 +38,8 @@ public class SorteioDTO {
         this.dataProximoSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public SorteioDTO(SorteioModel sorteioModel){
-        this(sorteioModel.getNumeroSorteio(), sorteioModel.getNumeroConcursoProximo(),
+    public static SorteioDTO from(SorteioModel sorteioModel){
+        return new SorteioDTO(sorteioModel.getNumeroSorteio(), sorteioModel.getNumeroConcursoProximo(),
                 sorteioModel.isAcumulado(), sorteioModel.getDataSorteio(),
                 sorteioModel.getDataProximoSorteio(), sorteioModel.getDezenasSorteadas(),
                 Premio.convertStringToPremio(sorteioModel.getPremios()), sorteioModel.getValorAcumuladoProximoConcurso());
