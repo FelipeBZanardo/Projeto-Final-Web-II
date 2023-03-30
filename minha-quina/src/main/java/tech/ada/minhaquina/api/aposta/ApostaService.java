@@ -57,8 +57,8 @@ public class ApostaService {
     private ApostaDTO salvarAposta(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel){
         verificarNumeroSorteio(apostaDTO.getNumeroSorteio());
         verificarDataJogo(apostaDTO.getNumeroSorteio(), apostaDTO.getDataJogo());
-        apostaRepository.save(ApostaDTO.convertToModel(apostaModel, apostaDTO, usuarioModel));
-        return apostaDTO;
+        ApostaModel aposta = apostaRepository.save(ApostaDTO.convertToModel(apostaModel, apostaDTO, usuarioModel));
+        return ApostaDTO.from(aposta);
     }
 
     private void verificarNumeroSorteio(Integer numeroSorteio) {

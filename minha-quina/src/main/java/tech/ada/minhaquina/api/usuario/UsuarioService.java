@@ -19,14 +19,7 @@ public class UsuarioService {
     }
 
     public UsuarioResponse saveUsuario(@Valid UsuarioRequest usuarioRequest) {
-        Optional<UsuarioModel> optionalUsuario = usuarioRepository.findByEmail(usuarioRequest.getEmail());
-        if (optionalUsuario.isPresent()) {
-            throw new DuplicatedUserException("E-mail já cadastrado");
-        }
-        Optional<UsuarioModel> optionalUsuarioName = usuarioRepository.findByUsername(usuarioRequest.getUsername());
-        if (optionalUsuarioName.isPresent()) {
-            throw new DuplicatedUserException("Nome de usuário já cadastrado");
-        }
+        verificarDuplicidade(usuarioRequest);
         UsuarioModel user = UsuarioModel.builder()
                 .email(usuarioRequest.getEmail())
                 .username(usuarioRequest.getUsername())
@@ -37,10 +30,19 @@ public class UsuarioService {
         return new UsuarioResponse(usuarioModel);
     }
 
-    public UsuarioResponse updateUsuario(Long id, UsuarioRequest usuarioRequest) {
-        UsuarioModel usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
+    private void verificarDuplicidade(UsuarioRequest usuarioRequest) {
+        Optional<UsuarioModel> optionalUsuario = usuarioRepository.findByEmail(usuarioRequest.getEmail());
+        if (optionalUsuario.isPresent()) {
+            throw new DuplicatedUserException("E-mail já cadastrado");
+        }
+        Optional<UsuarioModel> optionalUsuarioName = usuarioRepository.findByUsername(usuarioRequest.getUsername());
+        if (optionalUsuarioName.isPresent()) {
+            throw new DuplicatedUserException("Nome de usuário já cadastrado");
+        }
+    }
 
+    public UsuarioResponse updateUsuario(Long id, UsuarioRequest usuarioRequest) {
+        verificarDuplicidade(usuarioRequest);
         UsuarioModel user = UsuarioModel.builder()
                 .email(usuarioRequest.getEmail())
                 .username(usuarioRequest.getUsername())
@@ -58,6 +60,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
         usuarioRepository.delete(usuario);
     }
+
 
 
 }
