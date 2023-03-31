@@ -3,7 +3,10 @@ package tech.ada.minhaquina.api.sorteio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import tech.ada.minhaquina.client.SorteioDTO;
 
 @SecurityRequirement(name = "Admin")
@@ -21,7 +24,7 @@ public class SorteioRestController {
 
     @Operation(description = "Dados do sorteio relacionado à aposta, se disponível")
     @GetMapping()
-    public SorteioDTO getSorteioCadastradoByNumeroSorteio(@PathVariable Long apostaId){
+    public SorteioDTO getSorteioCadastradoByNumeroSorteio(@PathVariable Long apostaId) {
         return sorteioService.getSorteioByAposta(apostaId);
     }
 

@@ -23,7 +23,7 @@ public class ResultadoRestController {
 
     @Operation(description = "Mostra o resultado da aposta, se disponível")
     @GetMapping
-    public ResultadoResponse getResultado(@PathVariable Long apostaId){
+    public ResultadoResponse getResultado(@PathVariable Long apostaId) {
         return resultadoService.getResultadoByAposta(apostaId);
     }
 }

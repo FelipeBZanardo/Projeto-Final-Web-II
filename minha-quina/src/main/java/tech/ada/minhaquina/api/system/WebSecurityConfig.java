@@ -15,36 +15,32 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
 @Profile("security-custom-user")
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 @RequiredArgsConstructor
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true) //deprecated
 public class WebSecurityConfig {
 
+    private static final String[] AUTH_ALLOWLIST = {
+            // -- Swagger UI v3
+            "/v3/api-docs/**",
+            "v3/api-docs/**",
+            "/swagger-ui/**",
+            "swagger-ui/**",
+            "/swagger-ui.html",
+            "swagger-ui.html",
+            "/v3/api-docs.yaml",
+            // Actuators
+            "/actuator/**",
+            "/health/**",
+            // Login
+            "/auth/**",
+            // Actions
+            "/minha-quina/**",
+    };
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
-    private static final String[] AUTH_ALLOWLIST = {
-        // -- Swagger UI v3
-        "/v3/api-docs/**",
-        "v3/api-docs/**",
-        "/swagger-ui/**",
-        "swagger-ui/**",
-        "/swagger-ui.html",
-        "swagger-ui.html",
-            "/v3/api-docs.yaml",
-        // Actuators
-        "/actuator/**",
-        "/health/**",
-        // Login
-        "/auth/**",
-        // Actions
-        "/minha-quina/**",
-    };
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,7 +50,8 @@ public class WebSecurityConfig {
                         requests
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(AUTH_ALLOWLIST).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                                .requestMatchers("/minha-quina/api/v1/apostas/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .headers().frameOptions().disable()

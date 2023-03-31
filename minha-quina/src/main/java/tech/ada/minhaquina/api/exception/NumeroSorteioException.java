@@ -1,6 +1,6 @@
 package tech.ada.minhaquina.api.exception;
 
-public class NumeroSorteioException extends RuntimeException{
+public class NumeroSorteioException extends RuntimeException {
 
     private final Integer numeroProximoSorteio;
 

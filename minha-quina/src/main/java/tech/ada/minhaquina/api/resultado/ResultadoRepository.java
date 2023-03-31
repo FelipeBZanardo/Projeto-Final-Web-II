@@ -11,7 +11,7 @@ public interface ResultadoRepository extends JpaRepository<ResultadoModel, Long>
 
 
     Optional<ResultadoModel> findByApostaAndSorteioAndPontuacaoAndValorPremio(ApostaModel apostaModel,
-                                                                                    SorteioModel sorteioModel,
-                                                                                    Integer pontuacao,
-                                                                                    BigDecimal valorPremio);
+                                                                              SorteioModel sorteioModel,
+                                                                              Integer pontuacao,
+                                                                              BigDecimal valorPremio);
 }

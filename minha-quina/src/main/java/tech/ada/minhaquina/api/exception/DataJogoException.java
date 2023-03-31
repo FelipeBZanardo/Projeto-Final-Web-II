@@ -3,7 +3,7 @@ package tech.ada.minhaquina.api.exception;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class DataJogoException extends RuntimeException{
+public class DataJogoException extends RuntimeException {
 
     private final Integer numeroSorteio;
     private final LocalDate dataSorteio;

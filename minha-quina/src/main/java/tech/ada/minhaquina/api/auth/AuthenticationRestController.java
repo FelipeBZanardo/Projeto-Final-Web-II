@@ -35,6 +35,7 @@ public class AuthenticationRestController {
         String token = jwtService.createToken(user);
         return new AuthenticationResponse(token);
     }
+
     @SecurityRequirement(name = "Admin")
     @SecurityRequirement(name = "User")
     @Operation(description = "Logout de usuário/admin")

@@ -33,10 +33,10 @@ public class SorteioService {
     }
 
     public void saveSorteio(Integer numeroSorteio) {
-        try{
+        try {
             SorteioDTO sorteioDTO = getSorteioByNumeroSorteio(numeroSorteio);
             sorteioRepository.save(SorteioDTO.convertToModel(new SorteioModel(), sorteioDTO));
-        } catch (FeignException e){
+        } catch (FeignException e) {
             SorteioDTO ultimoSorteio = getUltimoSorteio();
             LocalDate dataProximoSorteio = ultimoSorteio.getDataProximoSorteio();
             throw new SorteioException(numeroSorteio, dataProximoSorteio);
@@ -46,9 +46,9 @@ public class SorteioService {
 
     public SorteioDTO getSorteioByAposta(Long apostaId) {
         ApostaModel apostaModel = apostaRepository.findById(apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id de aposta não existe"));
+                .orElseThrow(() -> new NoSuchElementException("Id de aposta não existe"));
         Integer numeroSorteio = apostaModel.getNumeroSorteio();
-        if(!sorteioRepository.existsByNumeroSorteio(numeroSorteio))
+        if (!sorteioRepository.existsByNumeroSorteio(numeroSorteio))
             saveSorteio(numeroSorteio);
 
         SorteioModel sorteioModel = sorteioRepository.findByNumeroSorteio(numeroSorteio).orElseThrow();

@@ -27,13 +27,13 @@ public class ApostaRestController {
 
     @Operation(description = "Lista todas as apostas do usuário logado")
     @GetMapping
-    public List<ApostaDTO> getAllApostas(@AuthenticationPrincipal UserDetails userDetails){
+    public List<ApostaDTO> getAllApostas(@AuthenticationPrincipal UserDetails userDetails) {
         return apostaService.getAllApostas(userDetails);
     }
 
     @Operation(description = "Busca aposta de acordo com seu Id")
     @GetMapping("/{apostaId}")
-    public ApostaDTO getApostabyId(@PathVariable Long apostaId, @AuthenticationPrincipal UserDetails userDetails){
+    public ApostaDTO getApostaById(@PathVariable Long apostaId, @AuthenticationPrincipal UserDetails userDetails) {
         return apostaService.getApostaById(userDetails, apostaId);
     }
 
@@ -45,15 +45,15 @@ public class ApostaRestController {
     }
 
     @Operation(description = "Atualiza uma determinada aposta")
-    @PutMapping ("/{apostaId}")
-    public ApostaDTO updateAposta(@PathVariable Long apostaId, @RequestBody ApostaDTO apostaDTO, @AuthenticationPrincipal UserDetails userDetails){
+    @PutMapping("/{apostaId}")
+    public ApostaDTO updateAposta(@PathVariable Long apostaId, @RequestBody ApostaDTO apostaDTO, @AuthenticationPrincipal UserDetails userDetails) {
         return apostaService.updateAposta(userDetails, apostaId, apostaDTO);
     }
 
     @Operation(description = "Deleta uma determinada aposta")
     @DeleteMapping("/{apostaId}")
-    public void deleteAposta(@PathVariable Long apostaId, @AuthenticationPrincipal UserDetails userDetails){
-            apostaService.deleteAposta(userDetails, apostaId);
+    public void deleteAposta(@PathVariable Long apostaId, @AuthenticationPrincipal UserDetails userDetails) {
+        apostaService.deleteAposta(userDetails, apostaId);
     }
 
 }

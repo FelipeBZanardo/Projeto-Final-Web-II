@@ -1,7 +1,6 @@
 package tech.ada.minhaquina.api.admin.user;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +23,11 @@ public class UserManagerRestController {
 
     private final UsuarioRepository userJpaRepository;
 
-
     @Operation(description = "Lista usuários cadastrados")
     @GetMapping
     public List<UsuarioResponse> listar() {
         return this.userJpaRepository.findAll().stream()
-            .map(UsuarioResponse::new)
-            .toList();
+                .map(UsuarioResponse::new)
+                .toList();
     }
-
 }

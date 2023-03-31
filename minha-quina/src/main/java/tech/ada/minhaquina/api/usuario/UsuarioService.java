@@ -60,7 +60,4 @@ public class UsuarioService {
                 .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
         usuarioRepository.delete(usuario);
     }
-
-
-
 }

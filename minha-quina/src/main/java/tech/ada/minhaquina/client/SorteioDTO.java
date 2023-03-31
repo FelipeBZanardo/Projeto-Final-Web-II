@@ -28,24 +28,14 @@ public class SorteioDTO {
     private List<Premio> premios;
     private BigDecimal valorAcumuladoProximoConcurso;
 
-    @JsonProperty("dataApuracao")
-    private void convertDate(String dataString){
-        this.dataSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    @JsonProperty("dataProximoConcurso")
-    private void convertDateProximoSorteio(String dataString){
-        this.dataProximoSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    public static SorteioDTO from(SorteioModel sorteioModel){
+    public static SorteioDTO from(SorteioModel sorteioModel) {
         return new SorteioDTO(sorteioModel.getNumeroSorteio(), sorteioModel.getNumeroConcursoProximo(),
                 sorteioModel.isAcumulado(), sorteioModel.getDataSorteio(),
                 sorteioModel.getDataProximoSorteio(), sorteioModel.getDezenasSorteadas(),
                 Premio.convertStringToPremio(sorteioModel.getPremios()), sorteioModel.getValorAcumuladoProximoConcurso());
     }
 
-    public static SorteioModel convertToModel(SorteioModel sorteioModel, SorteioDTO sorteioDTO){
+    public static SorteioModel convertToModel(SorteioModel sorteioModel, SorteioDTO sorteioDTO) {
         sorteioModel.setNumeroSorteio(sorteioDTO.getNumeroSorteio());
         sorteioModel.setNumeroConcursoProximo(sorteioDTO.getNumeroConcursoProximo());
         sorteioModel.setAcumulado(sorteioDTO.isAcumulado());
@@ -57,6 +47,15 @@ public class SorteioDTO {
         return sorteioModel;
     }
 
+    @JsonProperty("dataApuracao")
+    private void convertDate(String dataString) {
+        this.dataSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    @JsonProperty("dataProximoConcurso")
+    private void convertDateProximoSorteio(String dataString) {
+        this.dataProximoSorteio = LocalDate.parse(dataString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 
 
 }

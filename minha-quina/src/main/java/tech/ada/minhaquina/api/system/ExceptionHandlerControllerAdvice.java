@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import tech.ada.minhaquina.api.exception.*;
+import tech.ada.minhaquina.api.exception.DataJogoException;
+import tech.ada.minhaquina.api.exception.NumeroSorteioException;
+import tech.ada.minhaquina.api.exception.SorteioException;
 import tech.ada.minhaquina.api.usuario.DuplicatedUserException;
 
 import java.util.NoSuchElementException;

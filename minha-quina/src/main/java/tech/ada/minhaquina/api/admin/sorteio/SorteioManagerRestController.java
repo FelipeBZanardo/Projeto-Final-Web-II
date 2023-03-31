@@ -1,4 +1,5 @@
 package tech.ada.minhaquina.api.admin.sorteio;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,13 +28,13 @@ public class SorteioManagerRestController {
 
     @Operation(description = "Dados do último sorteio disponível")
     @GetMapping
-    public SorteioDTO getUltimoResultado(){
+    public SorteioDTO getUltimoResultado() {
         return sorteioService.getUltimoSorteio();
     }
 
     @Operation(description = "Dados do sorteio de acordo com o número do sorteio")
     @GetMapping("/{numero}")
-    public SorteioDTO getResultadoByNumeroSorteio(@PathVariable Integer numero){
+    public SorteioDTO getResultadoByNumeroSorteio(@PathVariable Integer numero) {
         return sorteioService.getSorteioByNumeroSorteio(numero);
     }
 

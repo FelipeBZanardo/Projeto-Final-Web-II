@@ -9,7 +9,10 @@ import tech.ada.minhaquina.api.sorteio.SorteioService;
 import tech.ada.minhaquina.client.Premio;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -28,9 +31,9 @@ public class ResultadoService {
         this.sorteioService = sorteioService;
     }
 
-    public ResultadoResponse getResultadoByAposta(Long apostaId){
+    public ResultadoResponse getResultadoByAposta(Long apostaId) {
         ApostaModel apostaModel = apostaRepository.findById(apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
+                .orElseThrow(() -> new NoSuchElementException("Id da aposta não existe"));
         sorteioService.getSorteioByAposta(apostaModel.getId());
         ResultadoModel resultadoModel = criarResultado(apostaModel);
 
@@ -58,14 +61,14 @@ public class ResultadoService {
         return resultadoModel;
     }
 
-    private ResultadoModel saveResultado(ResultadoModel resultadoModel){
+    private ResultadoModel saveResultado(ResultadoModel resultadoModel) {
         return resultadoRepository.save(resultadoModel);
     }
 
 
     private BigDecimal calcularValorPremio(Integer pontuacao, List<Premio> premios) {
         return premios.stream()
-                .filter(premio -> pontuacao.equals(Integer.parseInt(premio.getDescricao().substring(0,1))))
+                .filter(premio -> pontuacao.equals(Integer.parseInt(premio.getDescricao().substring(0, 1))))
                 .map(Premio::getValorPremio)
                 .findFirst()
                 .orElse(BigDecimal.ZERO);

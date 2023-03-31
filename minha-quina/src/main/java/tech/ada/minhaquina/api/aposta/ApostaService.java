@@ -33,7 +33,7 @@ public class ApostaService {
                 .toList();
     }
 
-    public ApostaDTO getApostaById(UserDetails userDetails, Long apostaId){
+    public ApostaDTO getApostaById(UserDetails userDetails, Long apostaId) {
         ApostaModel apostaModel = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         return ApostaDTO.from(apostaModel);
     }
@@ -43,18 +43,18 @@ public class ApostaService {
         return salvarAposta(new ApostaModel(), apostaDTO, usuarioModel);
     }
 
-    public ApostaDTO updateAposta(UserDetails userDetails, Long apostaId, ApostaDTO apostaDTO){
+    public ApostaDTO updateAposta(UserDetails userDetails, Long apostaId, ApostaDTO apostaDTO) {
         UsuarioModel usuarioModel = getUsuarioByUsername(userDetails.getUsername());
         ApostaModel apostaAModificar = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         return salvarAposta(apostaAModificar, apostaDTO, usuarioModel);
     }
 
-    public void deleteAposta(UserDetails userDetails, Long apostaId) throws NoSuchElementException{
+    public void deleteAposta(UserDetails userDetails, Long apostaId) throws NoSuchElementException {
         ApostaModel aposta = getApostaModelByUsuarioNameAndId(userDetails.getUsername(), apostaId);
         apostaRepository.delete(aposta);
     }
 
-    private ApostaDTO salvarAposta(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel){
+    private ApostaDTO salvarAposta(ApostaModel apostaModel, ApostaDTO apostaDTO, UsuarioModel usuarioModel) {
         verificarNumeroSorteio(apostaDTO.getNumeroSorteio());
         verificarDataJogo(apostaDTO.getNumeroSorteio(), apostaDTO.getDataJogo());
         ApostaModel aposta = apostaRepository.save(ApostaDTO.convertToModel(apostaModel, apostaDTO, usuarioModel));
@@ -69,25 +69,25 @@ public class ApostaService {
 
     private void verificarDataJogo(Integer numeroSorteio, LocalDate dataJogo) {
         SorteioDTO ultimoSorteio = quinaRestClient.getUltimoSorteio();
-        if(ultimoSorteio.getNumeroConcursoProximo().equals(numeroSorteio)){
-            if(dataJogo.isAfter(ultimoSorteio.getDataProximoSorteio()))
+        if (ultimoSorteio.getNumeroConcursoProximo().equals(numeroSorteio)) {
+            if (dataJogo.isAfter(ultimoSorteio.getDataProximoSorteio()))
                 throw new DataJogoException(numeroSorteio, ultimoSorteio.getDataProximoSorteio());
             return;
         }
 
         SorteioDTO sorteio = quinaRestClient.getSorteioByNumeroSorteio(numeroSorteio);
-        if(dataJogo.isAfter(sorteio.getDataSorteio()))
+        if (dataJogo.isAfter(sorteio.getDataSorteio()))
             throw new DataJogoException(numeroSorteio, sorteio.getDataSorteio());
     }
 
-    private UsuarioModel getUsuarioByUsername(String username){
+    private UsuarioModel getUsuarioByUsername(String username) {
         return usuarioRepository.findByUsername(username)
-                .orElseThrow(()-> new NoSuchElementException("Id de usuário não existe"));
+                .orElseThrow(() -> new NoSuchElementException("Id de usuário não existe"));
     }
 
-    private ApostaModel getApostaModelByUsuarioNameAndId(String username, Long apostaId){
+    private ApostaModel getApostaModelByUsuarioNameAndId(String username, Long apostaId) {
         return apostaRepository.findByUsuarioUsernameAndId(username, apostaId)
-                .orElseThrow(()-> new NoSuchElementException("Id da aposta não existe"));
+                .orElseThrow(() -> new NoSuchElementException("Id da aposta não existe"));
     }
 
 

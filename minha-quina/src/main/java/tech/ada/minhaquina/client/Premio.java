@@ -2,6 +2,7 @@ package tech.ada.minhaquina.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Premio {
     private Integer numeroDeGanhadores;
     private BigDecimal valorPremio;
 
-    public static String convertPremioToString(List<Premio> premios){
+    public static String convertPremioToString(List<Premio> premios) {
         return premios.stream()
                 .map(premio -> premio.getDescricao() + "," +
                         premio.getFaixa() + "," +
@@ -28,7 +29,7 @@ public class Premio {
                 .substring(1);
     }
 
-    public static List<Premio> convertStringToPremio(String premiosString){
+    public static List<Premio> convertStringToPremio(String premiosString) {
         String[] premios = premiosString.split("\n");
         return Arrays.stream(premios)
                 .map(premio -> {
@@ -36,8 +37,8 @@ public class Premio {
                     return new Premio(atributoPremio[0],
                             Integer.valueOf(atributoPremio[1]),
                             Integer.valueOf(atributoPremio[2]),
-                            new BigDecimal(atributoPremio[3]));})
+                            new BigDecimal(atributoPremio[3]));
+                })
                 .toList();
     }
-
 }

@@ -1,10 +1,6 @@
 package tech.ada.minhaquina.api.usuario;
 
-import io.swagger.v3.core.util.Json;
-import io.swagger.v3.core.util.Json31;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
-
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,14 +24,12 @@ public class UsuarioRestController {
         this.usuarioService = usuarioService;
     }
 
-
     @Operation(description = "Cadastro de um novo usuário/admin")
     @PostMapping("/cadastro")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioResponse saveUsuario(@RequestBody @Valid UsuarioRequest usuarioRequest) {
         return usuarioService.saveUsuario(usuarioRequest);
     }
-
 
     @Operation(description = "Edição de um usuário/admin pelo Id")
     @PutMapping("/{id}/editar")
@@ -47,7 +41,7 @@ public class UsuarioRestController {
     @Operation(description = "Exclusão de um usuário/admin pelo Id")
     @DeleteMapping("/{id}/deletar")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteUser(@PathVariable Long id){
+    public void deleteUser(@PathVariable Long id) {
         usuarioService.deleteUsuario(id);
     }
 }
