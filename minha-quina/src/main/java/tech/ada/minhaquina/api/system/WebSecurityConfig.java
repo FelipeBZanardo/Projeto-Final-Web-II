@@ -40,6 +40,8 @@ public class WebSecurityConfig {
         "/health/**",
         // Login
         "/auth/**",
+        // Actions
+        "/minha-quina/**",
     };
 
 
@@ -60,8 +62,8 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors().disable();
         return http.build();
     }
 }
